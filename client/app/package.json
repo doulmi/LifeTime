@@ -1,0 +1,15 @@
+{
+  "name": "education-system",
+  "productName": "海空飞行员成长记录系统",
+  "version": "1.0.0",
+  "description": "A manage system for students and teachers",
+  "main": "./main.js",
+  "author": {
+    "name": "CHEN Fengyu",
+    "email": "fengyu.chen.fr@gmail.com",
+    "url": "https://github.com/doulmi"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}

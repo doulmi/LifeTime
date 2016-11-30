@@ -1,0 +1,77 @@
+﻿#整体项目采取前后端分离的策略，因为客户端是需要用户下载到本地使用的桌面应用。
+所以才打包客户端时，**记得**要先修改client/app/constants/index.js文件中的API请求路径：
+serverUrl 和 serverUrlNotApi 将localhost:3333改为网站域名。
+
+##开发环境
+1. Nodejs v6.0.0版本
+2. Windows10
+3. Visual Studio Code
+
+##服务器端程序为server
+
+###前置安装：
+1. 安装mongodb 3.2.10, Robomongo 0.9.0用于可视化数据
+2. 安装nodejs 6以上，7以下，不然会出Bug
+
+**记得进入server目录后**
+###对服务器端安装依赖文件：
+3. npm install
+4. 开启mongodb : mongod
+
+###测试用：
+5. 如果需要**测试数据**，可使用npm run seed命令输入测试用数据(该过程需要花费一些时间，请勿中断)，完成后，按Ctrl+C终止。
+6. npm start 开启服务器用于测试，
+
+###真实环境:
+4.9 如果在此之前导入过测试数据，请使用Robomongo将整个测试数据库删除
+5. 安装数据库的角色信息和超级管理员：npm run initDB
+6. npm run production 用于真实环境
+	 
+整个服务器只提供数据的API，不带有任何View
+###主要文件如下：
+middlewares: 放置中间件，阻止权限不够的用户访问到相关api
+models: mongoose模板和类
+routes: 路由文件，每个model一个路由文件
+uploads: 用户上传文件用
+utils: 一些工具类
+shares: 配置文件和检验工具
+
+###账号：
+超级管理员账号：superAdmin, 密码123456，
+
+###测试数据：
+2016001 - 2016100 为学生账号
+2016101 - 2016150 为普通老师账号
+2016151 - 2016160 为管理员账号
+superAdmin 为超级管理员账号
+密码均为123456
+
+##客户端程序为client文件夹
+###前置安装：
+1. 安装nodejs 6以上，7以下，不然会出Bug，建议使用nvm来管理nodejs版本，
+
+**记得另外开一个终端，进入client目录**
+###对客户端端安装依赖文件：
+3. npm install
+
+###测试用
+4. 使用npm run dev，等待片刻后就能启动桌面应用
+
+###部署用
+4. 使用npm run package，等待片刻后会打包**当前系统**可执行文件到release文件夹下。
+
+###国际化
+项目中出现的所有文本都统一放置在client/app/constants/string.js文件中，若要修改，直接在此修改重新打包即可。
+
+###主要文件如下：
+app 用于放置整个应用代码
+	-actions 调用API与服务器端通讯
+	-components 纯组件
+	-constants 应用定义的一些常亮和系统配置
+	-pages 系统的每个页面
+	-reducers redux的reducer函数
+	-store redux的initStore
+	-utils 时间相关函数和验证函数
+release 调用npm run package后会生成该文件夹，放置打包后的文件：安装包和无需安装的文件夹两种方式
+resources 放置图片
+ueditor 百度ueditor，无须理会

@@ -1,0 +1,7 @@
+{
+    "imageUrl": "http://localhost:3333/ueditor/ue?action=uploadimage",
+    "imagePath": "/ueditor/php/",
+    "imageFieldName": "upfile",
+    "imageMaxSize": 2048,
+    "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+}
