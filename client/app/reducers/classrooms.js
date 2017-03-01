@@ -1,4 +1,4 @@
-import { START_LOAD_CLASSROOMS, ADD_CLASSROOM, LOAD_CLASSROOMS, DELETE_CLASSROOM, UPDATE_CLASSROOM } from '../actions/types'
+import { START_LOAD_CLASSROOMS, ADD_CLASSROOM, LOAD_CLASSROOMS, DELETE_CLASSROOM, UPDATE_CLASSROOM, LOAD_ALL_CLASSROOMS } from '../actions/types'
 
 const initState = {
   classrooms: [],
@@ -16,6 +16,16 @@ const classrooms = (state = initState, action) => {
       classrooms: [...action.classrooms],
       paginate: action.paginate,
       isLoading: false,
+    }
+    case LOAD_ALL_CLASSROOMS: return {
+      classrooms: [...action.classrooms],
+      paginate: {},
+      isLoading:  false   
+    }
+    case ADD_CLASSROOM: return {
+      classrooms: [action.classroom, ...state.classrooms],
+      paginate: action.paginate,
+      isLoading: state.isLoading
     }
     case UPDATE_CLASSROOM: {
       let i = 0;

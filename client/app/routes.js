@@ -32,12 +32,14 @@ import SchedualPage from './pages/SchedualPage'
 import StudentMoodsDataPage from './pages/teacher/StudentMoodsDataPage'
 import StudentOptiquesDataPage from './pages/teacher/StudentOptiquesDataPage'
 import TeacherCoursePage from './pages/teacher/TeacherCoursePage'
-import ManageClassroomPage from './pages/teacher/ManageClassroomPage'
+import ManageClassroomPage from './pages/admin/ManageClassroomPage'
+import ManageEquipementPage from './pages/admin/ManageEquipementPage'
 import StudentTasksDataPage from './pages/teacher/StudentTasksDataPage'
 import CollectDetailPage from './pages/teacher/CollectDetailPage'
 import CreateUserPage from './pages/teacher/CreateUserPage'
 import ScoresPage from './pages/ScoresPage'
 import GiveScorePage from './pages/teacher/GiveScorePage'
+import EquipementPage from './pages/admin/EquipementPage'
 
 import Page404 from './pages/errors/Page404'
 import requireRole from './components/auth/requireRole'
@@ -73,10 +75,12 @@ export default (
     <Route path='/giveScore/:classId/:courseId' component={requireRole(GiveScorePage, ['admin', 'teacher'])} />
 
     {/** admin router */}
+    <Route path='/equipements/:id' component={requireRole(EquipementPage, ['admin', 'superAdmin'])} />
+    {/** <Route path='/classrooms/:id' component={requireRole(ClassroomPage, ['admin', 'superAdmin'])} />*/} 
+    <Route path='/ManageEquipement' component={requireRole(ManageEquipementPage, ['admin', 'superAdmin'])} />
     <Route path='/addNotification' component={requireRole(AddNotificationPage, ['teacher', 'admin', 'superAdmin'])} />
     <Route path='/modifyNotification/:id' component={requireRole(AddNotificationPage, ['admin', 'superAdmin'])} />
     <Route path='/manageScheduals/:classId' component={ManageSchedualPage} />
-    
     <Route path='/details' component={PersonalPage} />
     <Route path='/users/create' component={CreateUserPage} />
     <Route path='/users/:id' component={PersonalPage} />

@@ -10,3 +10,5 @@ export const collectLoadNumber = 30;
 export const loadClassesNumber = 30;
 export const courseLoadNumber = 30;
 export const classroomLoadNumber = 30;
+export const equipementLoadNumber = 30;
+export const equipementRecordLoadNumber = 30;

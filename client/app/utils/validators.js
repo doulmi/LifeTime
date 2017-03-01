@@ -362,21 +362,41 @@ export const validSchedualData = (data) => {
   }
 }
 
-export const validateCollectData = (data) => {
+/**
+ * 判断设备内容的输入是否正确
+ * 
+ */
+export const validateEquipementData = (data) => {
   let errors = {};
-  if (validator.isEmpty(data.title)) {
-    errors.title = N18.collectTitleIsRequired
+  console.log(data);
+  if (validator.isEmpty(data.name)) {
+    errors.name = N18.equipementNameIsRequired
   }
 
-  if (validator.isEmpty(data.title)) {
-    errors.content= N18.collectContentIsRequired
+  if (validator.isEmpty(data.description)) {
+    errors.description = N18.equipementDescIsRequired
   }
   
   return {
     errors,
     isValid: isEmpty(errors)
   }
+}
 
+
+export const validateCollectData = (data) => {
+  let errors = {};
+  if (validator.isEmpty(data.title)) {
+    errors.title = N18.collectTitleIsRequired
+  }
+
+  if (validator.isEmpty(data.content)) {
+    errors.content= N18.collectContentIsRequired
+  }
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  }
 }
 
 function isInteger(n) {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { START_LOAD_CLASSROOMS, LOAD_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASSROOM, UPDATE_CLASSROOM } from './types'
+import { START_LOAD_CLASSROOMS, LOAD_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASSROOM, UPDATE_CLASSROOM, LOAD_ALL_CLASSROOMS } from './types'
 import { classroomLoadNumber, serverUrl } from '../constants'
 
 export function startLoadClassroomsAction() {
@@ -17,6 +17,24 @@ export function loadClassroomsAction(classrooms, paginate) {
     paginate: paginate,
     isLoading: false,
   }
+}
+
+export function loadAllClassroomsAction(classrooms) {
+  return {
+    type: LOAD_ALL_CLASSROOMS,
+    classrooms: classrooms
+  }
+}
+
+export function loadAllClassrooms() {
+  return dispatch => {
+    let url = serverUrl + 'classrooms';
+    return axios.get(url).then(
+      (res) => {
+        dispatch(loadAllClassroomsAction(res.data.classrooms));
+      }
+    )
+  };
 }
 
 export function loadClassrooms(page, limit = classroomLoadNumber) {
@@ -71,7 +89,6 @@ export function updateClassroom(classroom) {
       })
   }
 }
-
 
 export function deleteClassroomAction(classroom) {
   return {

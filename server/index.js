@@ -61,6 +61,9 @@ app.use('/api/courses', authenticate, require('./routes/courses'));
 app.use('/api/scheduals', authenticate, require('./routes/scheduals'));
 app.use('/api/scores', authenticate, require('./routes/scores'));
 app.use('/api/checks', authenticate, require('./routes/checks'));
+app.use('/api/classrooms', authenticate, require('./routes/classrooms'));
+app.use('/api/equipements', authenticate, require('./routes/equipements'));
+app.use('/api/equipementRecords', authenticate, require('./routes/equipementRecords'));
 
 app.use('/ueditor/ueditor.config.json', (req, res) => {
   res.json({

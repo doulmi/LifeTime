@@ -1,76 +1,75 @@
 import express from 'express'
 import studentMiddleware from '../middlewares/studentMiddleware'
-import Equipement from '../models/equipement'
+import Classroom from '../models/classroom'
 import adminMiddleware from '../middlewares/adminMiddleware'
 import User from '../models/user'
 
 const router = express.Router()
 
-//取得所有Equipement
+//取得所有Classroom
 router.get('/:limit/:page', adminMiddleware, function (req, res) {
   let user = req.user;
   let limit = Number(req.params.limit);
   let page = Number(req.params.page);
 
-  Equipement.count()
+  Classroom.count()
     .exec((err, count) => {
-      Equipement.find()
+      Classroom.find()
         .sort('-createdAt')
         .skip(limit * page)
         .limit(limit)
-        .exec((err, equipements) => {
+        .exec((err, classrooms) => {
           if (err) throw err;
           let total = parseInt(Math.ceil((parseFloat(count) / limit)))
-          res.json({ equipements, total });
+          res.json({ classrooms, total });
         });
     });
 });
 
-//返回所有设备信息
+//返回所有教室信息
 router.get('/', adminMiddleware, function (req, res) {
-  Equipement.find()
+  Classroom.find()
     .sort('-createdAt')
-    .exec((err, equipements) => {
+    .exec((err, classrooms) => {
       if (err) throw err;
-      res.json({ equipements });
+      res.json({ classrooms });
     });
 });
 
-//添加设备
+//添加教室
 router.post('/', adminMiddleware, function (req, res) {
   let user = req.user;
 
-  let equipement = new Equipement(req.body);
-  equipement.save(err => {
+  let classroom = new Classroom(req.body);
+  classroom.save(err => {
     if (err) throw err;
-    res.json({ equipement });
+    res.json({ classroom });
   });
 })
 
-//更新设备
+//更新教室
 router.put('/:id', adminMiddleware, function (req, res) {
   let user = req.user;
   let condition = {};
   condition['_id'] = req.params.id;
 
-  Equipement
+  Classroom
     .findOne(condition)
-    .exec((err, equipement) => {
-      equipement.name = req.body.name;
-      equipement.description = req.body.description;
-      equipement.save((err) => {
+    .exec((err, classroom) => {
+      classroom.name = req.body.name;
+      classroom.save((err) => {
         if (err) throw err;
-        res.json({ equipement })
+        res.json({ classroom })
       })
     })
 })
 
-//删除设备
+//删除教室
 router.delete('/:id', adminMiddleware, function (req, res) {
   let condition = {};
   condition['_id'] = req.params.id;
 
-  Equipement.findOneAndRemove(condition, (err, tag) => {
+  Classroom.findOneAndRemove(condition, (err, tag) => {
     if (err) throw err;
     res.json({ success: true });
   })

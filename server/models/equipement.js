@@ -8,8 +8,7 @@ const ObjectId = Schema.Types.ObjectId
  */
 const equipementSchema = new Schema({
     name: String,
-    occupe: Boolean,
-    count: Number
+    description: String,
 }, {
     timestamps: true
 });

@@ -8,8 +8,6 @@ const ObjectId = Schema.Types.ObjectId
  */
 const classroomSchema = new Schema({
     name: String,
-    occupe: Boolean,
-    usedBy: {type: ObjectId, ref: 'User'},
 }, {
     timestamps: true
 });

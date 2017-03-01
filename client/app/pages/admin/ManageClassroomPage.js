@@ -5,13 +5,52 @@ import { loadClassrooms, updateClassroom, deleteClassroom, addClassroom } from '
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { cyan500, grey500, grey900 } from 'material-ui/styles/colors'
+import { cyan500, grey500, grey900, cyan700 } from 'material-ui/styles/colors'
 
 import Paginator from '../../components/Paginator'
 import LoadingProgress from '../../components/LoadingProgress'
 import N18 from '../../constants/string'
 
 import { validateClassroomData } from '../../utils/validators'
+
+
+const styles = {
+  white: {
+    color: 'white'
+  },
+
+  black: {
+    color: grey900
+  },
+
+  top3: {
+    marginTop: 30
+  },
+  toolbar: {
+    minHeight: 85,
+    padding: "10px 30px 20px 30px",
+    background: cyan500,
+  },
+
+  toolbar2: {
+    minHeight: 35,
+    paddingTop: 10,
+    background: cyan700
+  },
+
+  select: {
+    color: '#A4A4A4',
+    fontWeight: 'bold',
+    marginTop: 8,
+    fontSize: 12
+  },
+
+  floatBtn: {
+    float: 'right',
+    marginTop: 0
+  }
+}
+
 
 class ManageClassroomPage extends Component {
   constructor(props) {
@@ -22,6 +61,8 @@ class ManageClassroomPage extends Component {
       action: '',
       open: false,
       classroom: {},
+      modify: false,
+      id: '',
       name: '',
     }
 
@@ -29,6 +70,8 @@ class ManageClassroomPage extends Component {
     this.closeDialog = this.closeDialog.bind(this);
     this.onChange = this.onChange.bind(this);
     this.storeClassroom = this.storeClassroom.bind(this);
+    this.createClassroom = this.createClassroom.bind(this);
+    this.updateClassroom = this.updateClassroom.bind(this);
   }
 
   componentWillMount() {
@@ -46,20 +89,59 @@ class ManageClassroomPage extends Component {
     this.setState({ open: true })
   }
 
+  createClassroom() {
+    this.setState({
+      open: true,
+      modify: false,
+      name: ''
+    })
+  }
+
+  //查看设备
+  readClassroom(classroom) {
+    this.setState({
+      open: true,
+      id: classroom._id,
+      modify: true,
+      name: classroom.name
+    })
+  }
+
   closeDialog() {
     this.setState({ open: false })
   }
 
+  //更新设备
+  updateClassroom() {
+    const classroom = {
+      _id: this.state.id,
+      name: this.state.name.trim(),
+    }
+
+    let {errors, isValid} = validateClassroomData(classroom);
+
+    if (isValid) {
+      this.props.updateClassroom(classroom);
+      this.setState({
+        errors: {},
+        name: '',
+        open: false
+      })
+    } else {
+      this.setState({ errors })
+    }
+  }
+
+  //存储设备
   storeClassroom() {
-    console.log('store classroomr');
     let classroom = {
       name: this.state.name.trim(),
     }
 
-    let {errors, isValid} = validateClassroomData(collect);
+    let {errors, isValid} = validateClassroomData(classroom);
 
     if (isValid) {
-      this.props.addClassroom(collect);
+      this.props.addClassroom(classroom);
       this.setState({
         errors: {},
         name: '',
@@ -89,13 +171,13 @@ class ManageClassroomPage extends Component {
       <RaisedButton
         label={N18.submit}
         primary={true}
-        onTouchTap={this.storeClassroom}
+        onTouchTap={this.state.modify ? this.updateClassroom : this.storeClassroom}
         />
     ]
 
     const dialog = (
       <Dialog
-        title={N18.new + N18.classroom}
+        title={(this.state.modify ? N18.modify : N18.new) + N18.classroom}
         actions={actions}
         modal={false}
         open={this.state.open}
@@ -103,13 +185,13 @@ class ManageClassroomPage extends Component {
         >
 
         <TextField
-          hintText={N18.classroom}
+          hintText={N18.classroomName}
           fullWidth={true}
           name='name'
           onChange={this.onChange}
           value={this.state.name}
           errorText={this.state.errors.name}
-          floatingLabelText={N18.classroom} />
+          floatingLabelText={N18.classroomName} />
       </Dialog>
     )
 
@@ -117,20 +199,25 @@ class ManageClassroomPage extends Component {
 
     return (
       <Paper>
-        <div style={styles.toolbar} className="toolbar">
-          <SearchBar
-            clearCallback={this.clearCallback}
-            searchCallback={this.searchCallback}
-            searchInput={this.state.searchInput}
-            />
-          {isAdmin &&
-            <span style={styles.buttons}>
-              <FloatingActionButton secondary={true} onTouchTap={this.createClassroom} >
+        <div style={styles.toolbar}>
+          <div className="row">
+            <div className="col-md-6 col-sm-8 com-xs-12">
+            </div>
+            <div className="col-md-6 col-sm-4 com-xs-12">
+            </div>
+          </div>
+        </div>
+
+        {isAdmin ? (
+          <div className="toolbar" style={styles.toolbar2}>
+            <div style={styles.floatBtn}>
+              <FloatingActionButton secondary={true} onTouchTap={this.createClassroom}>
                 <ContentAdd />
               </FloatingActionButton>
-            </span>
-          }
-        </div>
+            </div>
+          </div>)
+          : null}
+
         <div className="box">
           {this.props.isLoading ? <LoadingProgress /> :
             (
@@ -138,21 +225,17 @@ class ManageClassroomPage extends Component {
                 <Table >
                   <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
                     <TableRow selectable={false}>
-                      <TableHeaderColumn>{N18.classroomTitle}</TableHeaderColumn>
-                      <TableHeaderColumn className="hidden-xs" style={{ width: 120 }}>{N18.name}</TableHeaderColumn>
-                      <TableHeaderColumn className="hidden-xs" style={{ width: 120 }}>{N18.isSubmit}</TableHeaderColumn>
-                      <TableHeaderColumn style={{ width: 80 }}>操作</TableHeaderColumn>
+                      <TableHeaderColumn>{N18.classroomName}</TableHeaderColumn>
+                      <TableHeaderColumn style={{ width: 80 }}>{N18.operations}</TableHeaderColumn>
                     </TableRow>
                   </TableHeader>
                   <TableBody displayRowCheckbox={false} showRowHover={true}>
                     {this.props.classrooms.map(classroom => (
                       <TableRow key={classroom._id}>
                         <TableRowColumn>{classroom.name}</TableRowColumn>
-                        <TableRowColumn className="hidden-xs" style={{ width: 120 }}>{classroom.occupe ? N18.usedBy + classroom.usedBy.name : N18.inoccupe}</TableRowColumn>
                         <TableRowColumn style={{ width: 80 }}>
-                          <IconMenu
-                            useLayerForClickAway={true}
-                            iconButtonElement={iconButtonElement}>
+                          <IconMenu useLayerForClickAway={true} iconButtonElement={iconButtonElement}>
+                            {isAdmin && <MenuItem onTouchTap={() => this.readClassroom(classroom)}>{N18.modify}</MenuItem>}
                             {isAdmin && <MenuItem onTouchTap={() => this.props.deleteClassroom(classroom)}>{N18.delete}</MenuItem>}
                           </IconMenu>
                         </TableRowColumn>
@@ -176,17 +259,17 @@ class ManageClassroomPage extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-    classroomrs: state.classrooms.classrooms,
+    classrooms: state.classrooms.classrooms,
     paginate: state.classrooms.paginate,
     isLoading: state.classrooms.isLoading
-  }
-}
+  };
+};
 
 ManageClassroomPage.contextTypes = {
   router: React.PropTypes.object.isRequired
-}
+};
 
-export default connect(mapStateToProps, { loadClassrooms, updateClassroom, deleteClassroom, addClassroom })(ManageClassroomPage)
+export default connect(mapStateToProps, { loadClassrooms, updateClassroom, deleteClassroom, addClassroom })(ManageClassroomPage);

@@ -235,7 +235,6 @@ class AutoSelectField extends Component {
             {menuItems}
           </Menu>
         </Popover>
-
       </div>
     )
   }
@@ -264,7 +263,8 @@ AutoSelectField.defaultProps = {
   autoComplete: false,
   // eslint-disable-next-line no-unused-vars
   autocompleteFilter: (searchText, text) => {
-    return !text || text.toLowerCase().includes(searchText.toLowerCase())
+    searchText = searchText.trim();
+    return !text || text.toLowerCase().includes(searchText.toLowerCase()) || text.includes(searchText);
   }
 }
 

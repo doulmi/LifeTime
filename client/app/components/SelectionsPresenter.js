@@ -30,7 +30,7 @@ SelectionsPresenter.defaultProps = {
   hintText: '选择',
   // eslint-disable-next-line no-unused-vars
   displaySelectionsRenderer: (value, hintText) => {
-    return value.length
+    return value && value.length
       ? typeof value === 'string' ? value : value.join(', ')
       : hintText
   }

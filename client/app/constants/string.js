@@ -327,4 +327,23 @@ export default {
   inoccupe: '未被使用',
   usedBy: '当前使用者:',
   classroomNameIsRequired: '教室名称是必须的',
+
+  manageEquipement: '设备管理',
+  equipement: '设备',
+  equipementName: '设备名称',
+  equipementDesc: '设备描述',
+  equipementCount: '设备数量',
+  equipementNameIsRequired: '设备名称是必填项',
+  equipementDescIsRequired: '设备描述是必填项',
+  count: '数量',
+  useEquipement: '添加设备记录',
+  selectEquipement: '选择设备',
+  equipementStartAt: '使用日期',
+  equipementEndAt: '归还日期',
+
+  classroomName: '教室名称',
+  recordHistory: '使用记录',
+  noHistory: '暂无任何使用记录',
+  returned: '已归还?',
+  validReturn: '确认归还',
 }

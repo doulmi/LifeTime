@@ -19,7 +19,9 @@ import courses from './courses'
 import scheduals from './scheduals'
 import scores from './scores'
 import checks from './checks'
-import classroom from './classrooms.js'
+import classrooms from './classrooms'
+import equipements from './equipements'
+import equipementRecords from './equipementRecords'
 
 const rootReducer = combineReducers({
   routing,
@@ -41,7 +43,9 @@ const rootReducer = combineReducers({
   scheduals,
   scores,
   checks,
-  classroom
+  classrooms,
+  equipements,
+  equipementRecords
 });
 
 export default rootReducer;

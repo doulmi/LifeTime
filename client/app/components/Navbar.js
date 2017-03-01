@@ -1,18 +1,11 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+import React, { Component } from 'react';
 
-//ui
-import { List, ListItem, Popover, PopoverAnimationVertical, AppBar, Drawer, MenuItem, FlatButton, Avatar, IconButton, Menu } from 'material-ui'
-import ExitIcon from 'material-ui/svg-icons/action/exit-to-app';
-import { cyan500 } from 'material-ui/styles/colors'
-import Badge from 'material-ui/Badge'
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications'
-import Alarm from 'material-ui/svg-icons/action/alarm'
-import History from 'material-ui/svg-icons/action/history'
-import Equalizer from 'material-ui/svg-icons/av/equalizer'
-import DeviceAccessTime from 'material-ui/svg-icons/device/access-time'
-import MapsLocalOffer from 'material-ui/svg-icons/maps/local-offer'
-import ActionReceipt from 'material-ui/svg-icons/action/receipt';
+// ui
+import { List, ListItem, Drawer } from 'material-ui';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import Equalizer from 'material-ui/svg-icons/av/equalizer';
+import DeviceAccessTime from 'material-ui/svg-icons/device/access-time';
+import MapsLocalOffer from 'material-ui/svg-icons/maps/local-offer';
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -20,21 +13,19 @@ import ImageRemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box';
 import MapsLocalConvenienceStore from 'material-ui/svg-icons/maps/local-convenience-store';
 import ActionRecordVoiceOver from 'material-ui/svg-icons/action/record-voice-over';
-import CommunicationVpnKey from 'material-ui/svg-icons/communication/vpn-key';
 import ActionAccessibility from 'material-ui/svg-icons/action/accessibility';
 import CommunicationChat from 'material-ui/svg-icons/communication/chat';
 import AvLibraryBooks from 'material-ui/svg-icons/av/library-books';
 import PlacesSpa from 'material-ui/svg-icons/places/spa';
-import ActionViewModule from 'material-ui/svg-icons/action/view-module';
 import ActionClass from 'material-ui/svg-icons/action/class';
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
-import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth';
-// import navbarImg from '../resources/navbar.jpg'
+import DeviceUsb from 'material-ui/svg-icons/device/usb';
+import withWidth from 'material-ui/utils/withWidth';
 
-import SelectableList from './SelectableList'
+import SelectableList from './SelectableList';
 
-import N18 from '../constants/string'
+import N18 from '../constants/string';
 
 const styles = {
   icon: {
@@ -46,7 +37,7 @@ const styles = {
   },
 
   profile: {
-    padding: "40px 0 50px 15px",
+    padding: '40px 0 50px 15px',
     overflow: 'hidden',
   },
 
@@ -58,7 +49,7 @@ const styles = {
   item: {
     height: 45,
   }
-}
+};
 
 class Navbar extends Component {
   constructor(props) {
@@ -86,9 +77,7 @@ class Navbar extends Component {
     const { user } = this.props;
 
     const studentNav = (
-      <SelectableList
-        defaultValue={this.props.defaultValue}
-        handleSelect={this.handleSelect} >
+      <SelectableList defaultValue={this.props.defaultValue} handleSelect={this.handleSelect}>
         <ListItem style={styles.item} leftIcon={<ActionAccessibility />} value='/info' ><span >{N18.info}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<DeviceAccessTime />} value='/tasks' ><span >{N18.schedual}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<Equalizer />} value='/dashboard'><span >{N18.statistic}</span></ListItem>
@@ -114,7 +103,6 @@ class Navbar extends Component {
         <ListItem style={styles.item} leftIcon={<AvLibraryBooks />} value='/teacherCourse' ><span >{N18.teacherCourse}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<ActionDateRange />} value={'/schedual/' + this.props.user._id} ><span >{N18.mySchedual}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<PlacesSpa />} value="/manageCollect"><span >{N18.manageList}</span></ListItem>
-        <ListItem style={styles.item} leftIcon={<ActionClass />} value="/manageClassroom"><span >{N18.manageClassroom}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<NotificationsIcon />} value='/notifications' > <span >{N18.notification}</span> </ListItem>
       </SelectableList>
     );
@@ -134,6 +122,8 @@ class Navbar extends Component {
           <ListItem style={styles.item} leftIcon={<ActionDateRange />} value={'/schedual/' + this.props.user._id} ><span >{N18.mySchedual}</span></ListItem>
           <ListItem style={styles.item} leftIcon={<ActionThumbDown />} value='/managePunishment'><span >{N18.managePunishment}</span></ListItem>
           <ListItem style={styles.item} leftIcon={<PlacesSpa />} value="/manageCollect"><span >{N18.manageList}</span></ListItem>
+          <ListItem style={styles.item} leftIcon={<DeviceUsb />} value='/manageEquipement'><span >{N18.manageEquipement}</span></ListItem>
+          <ListItem style={styles.item} leftIcon={<ActionClass />} value="/manageClassroom"><span >{N18.manageClassroom}</span></ListItem>
         </SelectableList>
       </div>
     )
