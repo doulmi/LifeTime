@@ -251,6 +251,22 @@ export const validCollectData = (data) => {
 }
 
 /**
+ * 判断教室的输入是否正常
+ */
+export const validateClassroomData = (data) => {
+  let errors = {};
+
+  if (validator.isEmpty(data.name)) {
+    errors.name= N18.classroomNameIsRequired;
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  }
+}
+
+/**
  * 判断用户修改密码时的输入是否正常
  */
 export const validModifyPassword = (data) => {

@@ -26,9 +26,10 @@ import CommunicationChat from 'material-ui/svg-icons/communication/chat';
 import AvLibraryBooks from 'material-ui/svg-icons/av/library-books';
 import PlacesSpa from 'material-ui/svg-icons/places/spa';
 import ActionViewModule from 'material-ui/svg-icons/action/view-module';
+import ActionClass from 'material-ui/svg-icons/action/class';
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
-import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'
+import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth';
 // import navbarImg from '../resources/navbar.jpg'
 
 import SelectableList from './SelectableList'
@@ -113,6 +114,7 @@ class Navbar extends Component {
         <ListItem style={styles.item} leftIcon={<AvLibraryBooks />} value='/teacherCourse' ><span >{N18.teacherCourse}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<ActionDateRange />} value={'/schedual/' + this.props.user._id} ><span >{N18.mySchedual}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<PlacesSpa />} value="/manageCollect"><span >{N18.manageList}</span></ListItem>
+        <ListItem style={styles.item} leftIcon={<ActionClass />} value="/manageClassroom"><span >{N18.manageClassroom}</span></ListItem>
         <ListItem style={styles.item} leftIcon={<NotificationsIcon />} value='/notifications' > <span >{N18.notification}</span> </ListItem>
       </SelectableList>
     );

@@ -320,4 +320,11 @@ export default {
   leftOptiqueMustBeNumber: '左眼度数必须是数字',
   noTeacher : '没有老师',
   myScores: '我的成绩',
+
+  manageClassroom: '教室管理',
+  classroomTitle: '教室',
+  classroom: '教室',
+  inoccupe: '未被使用',
+  usedBy: '当前使用者:',
+  classroomNameIsRequired: '教室名称是必须的',
 }

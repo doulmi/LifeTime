@@ -26,6 +26,7 @@
     "mongoose": "^4.6.6",
     "mongoose-deep-populate": "^3.0.0",
     "multer": "^1.2.0",
+    "nodemon": "^1.11.0",
     "raven": "^0.12.1",
     "ueditor": "^1.2.0",
     "validator": "^6.1.0",

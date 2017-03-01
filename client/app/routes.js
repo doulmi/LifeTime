@@ -32,6 +32,7 @@ import SchedualPage from './pages/SchedualPage'
 import StudentMoodsDataPage from './pages/teacher/StudentMoodsDataPage'
 import StudentOptiquesDataPage from './pages/teacher/StudentOptiquesDataPage'
 import TeacherCoursePage from './pages/teacher/TeacherCoursePage'
+import ManageClassroomPage from './pages/teacher/ManageClassroomPage'
 import StudentTasksDataPage from './pages/teacher/StudentTasksDataPage'
 import CollectDetailPage from './pages/teacher/CollectDetailPage'
 import CreateUserPage from './pages/teacher/CreateUserPage'
@@ -62,6 +63,7 @@ export default (
     <Route path='/manageStudent' component={requireRole(ManageStudentPage, ['teacher', 'admin', 'superAdmin'])} />
     <Route path='/manageNotification' component={requireRole(ManageNotificationPage, ['admin', 'superAdmin'])} />
     <Route path='/manageCollect' component={requireRole(ManageCollectPage, ['teacher', 'admin', 'superAdmin'])} />
+    <Route path='/manageClassroom' component={requireRole(ManageClassroomPage, ['teacher', 'admin', 'superAdmin'])} />
     <Route path='/manageAchievement' component={requireRole(ManageAchievementPage, ['teacher', 'admin', 'superAdmin'])} />
     <Route path='/managePunishment(/:page)' component={requireRole(ManagePunishmentPage, ['teacher', 'admin', 'superAdmin'])} />
     <Route path='/manageTeacher' component={requireRole(ManageTeacherPage, ['admin', 'superAdmin'])} />
